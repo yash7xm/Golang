@@ -14,3 +14,7 @@ func main() {
 	createdTime := time.Date(2024, time.June, 23, 15, 05, 0, 0, time.UTC)
 	fmt.Println(createdTime.Format("2006-01-02"))
 }
+
+
+// GOOS="darwin" go build 
+// GOOS="windows" go build
