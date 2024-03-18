@@ -22,4 +22,14 @@ func main() {
 	fmt.Println(result.Path)
 	fmt.Println(result.Port())
 	fmt.Println(result.RawQuery)
+
+	partsOfUrl := &url.URL{
+		Scheme:  "https",
+		Host:    "lco.dev",
+		Path:    "/tut.css",
+		RawPath: "user=yash",
+	}
+
+	anotherUrl := partsOfUrl.String()
+	fmt.Println("The new created url is ", anotherUrl)
 }
