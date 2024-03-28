@@ -9,13 +9,22 @@ import (
 
 func main() {
 	fmt.Println("Welcome to web req verbs")
-	PerformGetRequest()
+	// PerformGetRequest()
+	// PerformPostJsonRequest()
 }
 
-func PerformGetRequest() {
-	const url = "http://localhost:8080/dog"
+func PerformPostJsonRequest() {
+	const myurl = "http://localhost:8000/post"
 
-	response, err := http.Get(url)
+	requestBody := strings.NewReader(`
+		{
+		"coursename":"Let's go with golang",
+		"price": 0,
+		"platform":"learnCodeOnline.in"
+		}
+	`)
+
+	response, err := http.Post(myurl, "appliation/json", requestBody)
 
 	if err != nil {
 		panic(err)
@@ -23,16 +32,29 @@ func PerformGetRequest() {
 
 	defer response.Body.Close()
 
-	fmt.Println("Status Code: ", response.StatusCode)
-	fmt.Println("Content Length is: ", response.ContentLength)
-
-	var responseString strings.Builder
 	content, _ := ioutil.ReadAll(response.Body)
-	byteCount, _ := responseString.Write(content)
 
-	fmt.Println("Byte Count is: ", byteCount)
-	fmt.Println(responseString.String())
+	fmt.Println(string(content))
 
-	//fmt.Println(content)
-	//fmt.Println(string(content))
+}
+
+func PerformGetRequest() {
+	const myurl = "http://localhost:8000/get"
+
+	response, err := http.Get(myurl)
+	if err != nil {
+		panic(err)
+	}
+
+	defer response.Body.Close()
+
+	fmt.Println("Status code: ", response.StatusCode)
+	fmt.Println("Content length is: ", response.ContentLength)
+
+	content, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Content: ", string(content))
 }
